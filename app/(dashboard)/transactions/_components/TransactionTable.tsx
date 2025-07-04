@@ -37,6 +37,17 @@ interface Props {
   from: Date;
   to: Date;
 }
+
+interface CsvExportData {
+  category: string;
+  categoryIcon: string;
+  description: string;
+  type: "income" | "expense";
+  amount: number;
+  formattedAmount: string;
+  date: Date;
+}
+
 const emptyData: TransactionHistoryRow[] = [];
 type TransactionHistoryRow = GetTransactionsHistoryResponseType[0];
 
@@ -136,8 +147,8 @@ const TransactionTable = ({ from, to }: Props) => {
         )}&to=${DateToUTCDate(to)}`
       ).then((res) => res.json()),
   });
-  const handleExportCSV = (data: any[]) => {
-    const csv = generateCsv(csvConfig)(data);
+  const handleExportCSV = (data: CsvExportData[]) => {
+    const csv = generateCsv(csvConfig)(data as any[]);
     download(csvConfig)(csv);
   };
   const table = useReactTable({
