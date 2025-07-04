@@ -4,11 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserSettings } from "@/lib/generated/prisma";
 import { GetFormatterForCurrency } from "@/lib/helpers";
 import { Period, TimeFrame } from "@/lib/types";
-import { set } from "date-fns";
 import React, { useCallback, useMemo, useState } from "react";
 import HistoryPeriodSelector from "./HistoryPeriodSelector";
 import { useQuery } from "@tanstack/react-query";
-import { GetHistoryDataResponseType } from "@/app/api/history-data/route";
 import SkeletonWrapper from "@/components/SkeletonWrapper";
 import {
   Bar,
@@ -18,6 +16,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  TooltipProps
 } from "recharts";
 import { cn } from "@/lib/utils";
 import CountUp from "react-countup";
@@ -155,8 +154,8 @@ const History = ({ userSettings }: Props) => {
                   />
                   <Tooltip
                     cursor={{ opacity: 0.1 }}
-                    content={(props) => (
-                      <CustomTooltip formatter={formatter} {...props} />
+                    content={(props : TooltipProps<number, string>) => (
+                      <CustomTooltip currencyFormatter={formatter} {...props} />
                     )}
                   />
                 </BarChart>
@@ -179,28 +178,32 @@ const History = ({ userSettings }: Props) => {
 
 export default History;
 
-function CustomTooltip({ active, payload, formatter }: any) {
+interface CustomTooltipProps extends TooltipProps<number, string> {
+  currencyFormatter: Intl.NumberFormat;
+}
+
+function CustomTooltip({ active, payload, currencyFormatter }: CustomTooltipProps) {
   if (!active || !payload || payload.length === 0) return null;
   const data = payload[0].payload;
   const { income, expense } = data;
   return (
     <div className="min-w-[300px] rounded border bg-background p-4">
       <TooltipRow
-        formatter={formatter}
+        formatter={currencyFormatter}
         label="Expense"
         value={expense}
         bgColor="bg-red-500"
         textColor="text-red-500"
       />
       <TooltipRow
-        formatter={formatter}
+        formatter={currencyFormatter}
         label="Income"
         value={income}
         bgColor="bg-emerald-500"
         textColor="text-emerald-500"
       />
       <TooltipRow
-        formatter={formatter}
+        formatter={currencyFormatter}
         label="Balance"
         value={income - expense}
         bgColor="bg-gray-100"

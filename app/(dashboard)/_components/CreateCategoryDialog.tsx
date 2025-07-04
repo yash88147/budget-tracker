@@ -33,8 +33,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleOff, Loader2, PlusSquare } from "lucide-react";
 import React, { ReactNode, useCallback, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import EmojiPicker, { Emoji, Theme } from "emoji-picker-react";
+import { useForm } from "react-hook-form";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 import { useTheme } from "next-themes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateCategory } from "../_actions/categories";

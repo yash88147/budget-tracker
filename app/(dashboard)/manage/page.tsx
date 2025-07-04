@@ -11,7 +11,6 @@ import {
 import { TransactionType } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import {
-  PlusIcon,
   PlusSquare,
   TrashIcon,
   TrendingDown,
