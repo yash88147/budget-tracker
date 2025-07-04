@@ -32,6 +32,7 @@ import { download, generateCsv, mkConfig } from "export-to-csv";
 import { DownloadIcon, MoreHorizontal, TrashIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DeleteTransactionDialog from "./DeleteTransactionDialog";
+import { TransactionType } from "@/lib/types";
 
 interface Props {
   from: Date;
@@ -42,7 +43,7 @@ interface CsvExportData {
   category: string;
   categoryIcon: string;
   description: string;
-  type: "income" | "expense";
+  type: TransactionType;
   amount: number;
   formattedAmount: string;
   date: Date;
@@ -210,7 +211,7 @@ const TransactionTable = ({ from, to }: Props) => {
                 category: row.original.category,
                 categoryIcon: row.original.categoryIcon,
                 description: row.original.description,
-                type: row.original.type,
+                type: row.original.type as TransactionType,
                 amount: row.original.amount,
                 formattedAmount: row.original.formattedAmount,
                 date: row.original.date,
