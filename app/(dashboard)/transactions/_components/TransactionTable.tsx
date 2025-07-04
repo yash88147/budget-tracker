@@ -37,7 +37,7 @@ interface Props {
   from: Date;
   to: Date;
 }
-const emptyData: any[] = [];
+const emptyData: TransactionHistoryRow[] = [];
 type TransactionHistoryRow = GetTransactionsHistoryResponseType[0];
 
 const columns: ColumnDef<TransactionHistoryRow>[] = [

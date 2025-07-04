@@ -8,8 +8,8 @@ const SkeletonWrapper = ({
   fullWidth = true,
 }: {
   children: ReactNode;
-  isLoading: Boolean;
-  fullWidth?: Boolean;
+  isLoading: boolean;
+  fullWidth?: boolean;
 }) => {
   console.log("[SkeletonWrapper] isLoading =", isLoading);
   if (!isLoading) return children;
